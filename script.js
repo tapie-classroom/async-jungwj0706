@@ -4,7 +4,11 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?lat=37.54266581731856&lon
     })
     .then(data => {
         console.log(data);
-        document.getElementById("temp").innerHTML=data.main.temp-273.15;
-        document.getElementById("humidity").innerHTML=data.main.humidity;
-        document.getElementById("wind").innerHTML=data.wind.speed;
+        document.getElementById("temp").textContent = `온도: ${(data.main.temp-273.15).toFixed(1)}℃`;
+        document.getElementById("humidity").textContent = `습도: ${data.main.humidity}%`;
+        document.getElementById("wind").textContent = `바람: ${data.wind.speed.toFixed(1)}m/s`;
+        document.getElementById("icon").src = `https://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
     })
+    .catch(error => {
+        console.error('오류가 발생했습니다.', error);
+    });
